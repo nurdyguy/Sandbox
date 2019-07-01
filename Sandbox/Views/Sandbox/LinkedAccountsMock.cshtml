@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Sandbox.Models.LinkedAccountVM>
+
+@{
+    ViewData["Title"] = "Linked Accounts Mock";
+}
+
+
+<script src="~/js/sandbox.js"></script>
+<link rel="stylesheet" href="~/scss/sandbox.css" />
+<div id="q2-container" class="row">
+    @foreach(var account in Model)
+    {
+    <div class="row col-xs-10 col-xs-offset-1 account-wrapper">
+        <div class="row col-xs-12 mainSummary">
+            <div class="col-xs-8 leftPanel">
+                <div class="row col-xs-12 accountName">
+                    <div>@account.AccountName</div>
+                </div>
+                <div class="row col-xs-12 accountDetails">
+                    <div>@account.BankName</div>
+                    <div>Account Number: @account.AccountNumber</div>
+                    <div>Balance: @(account.VerificationStage == VerificationStage.Verified ? string.Format("{0:C}", account.Balance) : "----")</div>
+                </div>
+            </div>
+            <div class="col-xs-4 rightPanel">
+                <div class="row col-xs-12">
+                    @if(account.VerificationStage == VerificationStage.Verified)
+                    {
+                    <div class="verified">VERIFIED <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></div>
+                    }
+                    else if(account.VerificationStage == VerificationStage.InProcess)
+                    {
+                    <div class="inprocess">IN PROCESS <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></div>
+                    }
+                    else if(account.VerificationStage == VerificationStage.Invalid)
+                    {
+                    <div class="invalid">INVALID <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></div>
+                    }
+
+                </div>
+                <div class="row col-xs-12">
+                    <button class="btn btn-primary removeAccount"
+                            @(account.VerificationStage == VerificationStage.InProcess ? "disabled='true'" : "")>
+                        Remove This Account
+                    </button>
+                </div>
+            </div>
+        </div>
+        @if(account.VerificationStage == VerificationStage.Verified)
+        {
+        <div class="row col-xs-12">
+            <div class="detailsBar"
+                 data-collapsed="true">
+                <span class="glyphicon glyphicon-menu-down pull-left" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-menu-down pull-right" aria-hidden="true"></span>
+                <span>Transfer Details</span>
+            </div>
+        </div>
+        <div class="col-xs-12 transferDetails-wrapper">
+            <div class="col-xs-12 transferDetails">
+                <div class="detailsTitle">Recurring Transfers</div>
+                <div class="row transHeader">
+                    <div class="col-xs-4">External Account</div>
+                    <div class="col-xs-4">Unify Account</div>
+                    <div class="col-xs-2">Ammount</div>
+                    <div class="col-xs-2">Frequence</div>
+                </div>
+                @foreach(var recurringTrans in account.RecurringTransfers)
+                {
+                <div class="row transBody">
+                    <div class="col-xs-4">
+                        <div class="col-xs-10 noPad">@recurringTrans.ExternalAccountName</div>
+                        <div class="col-xs-2 noPad"><span class="glyphicon @(recurringTrans.IsDebit ? "glyphicon-arrow-right" : "glyphicon-arrow-left")"></span></div>
+                    </div>
+                    <div class="col-xs-4">
+                        @recurringTrans.InternalAccountName
+                    </div>
+                    <div class="col-xs-2">@string.Format("{0:C}", recurringTrans.Ammount)</div>
+                    <div class="col-xs-2">@recurringTrans.Frequency</div>
+                </div>
+                }
+                <hr />
+                <div class="detailsTitle">Recent Transfers</div>
+                <div class="row transHeader">
+                    <div class="col-xs-4">External Account</div>
+                    <div class="col-xs-4">Unify Account</div>
+                    <div class="col-xs-2">Ammount</div>
+                    <div class="col-xs-2">Frequence</div>
+                </div>
+                @foreach(var trans in account.Transfers)
+                {
+                <div class="row transBody">
+                    <div class="col-xs-4">
+                        <div class="col-xs-10 noPad">@trans.ExternalAccountName</div>
+                        <div class="col-xs-2 noPad"><span class="glyphicon @(trans.IsDebit ? "glyphicon-arrow-right" : "glyphicon-arrow-left")"></span></div>
+                    </div>
+                    <div class="col-xs-4">@trans.InternalAccountName</div>
+                    <div class="col-xs-2">@string.Format("{0:C}", trans.Ammount)</div>
+                    <div class="col-xs-2">@trans.TransferDate.ToString("M/dd/yyyy")</div>
+                </div>
+                }
+            </div>
+        </div>
+        }
+    </div>
+    }
+    <div id="addNewExternalAccount" class="col-xs-12">
+        <span class="glyphicon glyphicon-plus"></span>
+    </div>
+
+    <div></div>
+</div>
