@@ -1,5 +1,5 @@
 ﻿#q2-container {
-  width: 1024px;
+  max-width: 1024px;
   min-height: 775px;
   background-color: white;
   padding-bottom: 50px; }
@@ -55,9 +55,9 @@
   .account-wrapper .transferDetails-wrapper {
     padding: 0 35px; }
     .account-wrapper .transferDetails-wrapper .transferDetails {
-      display: none;
       padding-top: 8px;
       padding-bottom: 8px;
+      margin-bottom: 20px;
       border-radius: 0 0 5px 5px;
       background-color: #D0D0D0; }
       .account-wrapper .transferDetails-wrapper .transferDetails hr {
@@ -78,3 +78,24 @@
     color: green;
     font-size: 50px;
     font-weight: 800; }
+
+#testcontainer {
+  position: relative; }
+  #testcontainer li div {
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%); }
+    #testcontainer li div span {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline; }
+      #testcontainer li div span svg {
+        max-height: 56px;
+        max-width: 84px;
+        width: 75%; }

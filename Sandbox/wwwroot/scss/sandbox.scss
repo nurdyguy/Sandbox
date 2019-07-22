@@ -1,7 +1,7 @@
 ﻿
 #q2-container{
     
-    width:1024px;
+    max-width:1024px;
     min-height:775px;
     background-color:white;
     padding-bottom:50px;
@@ -85,10 +85,10 @@
     .transferDetails-wrapper {
         padding: 0 35px;
 
-        .transferDetails {
-            display: none;
+        .transferDetails {            
             padding-top: 8px;
             padding-bottom: 8px;
+            margin-bottom:20px;
             border-radius: 0 0 5px 5px;
             background-color: #D0D0D0;
 
@@ -122,5 +122,39 @@
         color: green;
         font-size: 50px;
         font-weight: 800;
+    }
+}
+
+
+
+
+
+#testcontainer {
+    position: relative;
+
+    li {
+        div {
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+
+            span {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font-size: 100%;
+                font: inherit;
+                vertical-align: baseline;
+
+                svg {
+                    max-height: 56px;
+                    max-width: 84px;
+                    width: 75%;
+                }
+            } 
+        }
     }
 }
